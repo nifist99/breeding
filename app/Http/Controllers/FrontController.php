@@ -11,6 +11,21 @@ class FrontController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function login()
+    {
+        return view('web.login');
+    }
+    
+    public function forgotPassword()
+    {
+        return view('web.forgot-password');
+    }
+    
+    public function register()
+    {
+        return view('web.register');
+    }
+
     public function index()
     {
         //

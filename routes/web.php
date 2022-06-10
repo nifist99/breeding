@@ -13,6 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/','DashboardController@index');
+
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['admin']], function () {
+
+    });
+
+    Route::group(['middleware' => ['users']], function () {
+
+    });
+});
+
+Route::group(['middleware' => ['guest']], function () {
+    Route::get('login','FrontController@login');
+    Route::get('register','FrontController@register');
+    Route::get('forgot-password','FrontController@forgotPassword');
 });
