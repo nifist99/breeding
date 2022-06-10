@@ -13,6 +13,16 @@
 
     @include('admin_template/css')
 
+    <style>
+        .field-icon {
+            float: right;
+            margin-right: 11px;
+            margin-top: -34px;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -42,7 +52,8 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="password" name="password" placeholder="Password">
+                                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -75,6 +86,18 @@
     </div>
 
    @include('admin_template/js')
+   <script>
+    $(document).ready(function() {
+        $(".toggle-password").click(function() {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+                if ($('#password').attr('type') == "password") {
+                    $("#password").prop("type", "text");
+                } else {
+                    $("#password").prop("type", "password");
+                }
+        });
+    });
 
 </body>
 

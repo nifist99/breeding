@@ -13,6 +13,24 @@
 
     @include('admin_template/css')
 
+    <style>
+        .field-icon {
+            float: right;
+            margin-right: 11px;
+            margin-top: -34px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .field-icon2 {
+            float: right;
+            margin-right: 11px;
+            margin-top: -34px;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -32,26 +50,28 @@
                             <form class="user">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                        <input type="text" class="form-control form-control-user" name="name" id="name"
+                                            placeholder="Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                        <input type="number" class="form-control form-control-user" name="hp" id="hp"
+                                            placeholder="No Hp / Wa">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" class="form-control form-control-user" name="email" id="email"
                                         placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                            id="password" name="password" placeholder="Password">
+                                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                            id="repeat_password" name="repeat_password" placeholder="Repeat Password">
+                                            <span toggle="#password-field2" class="fa fa-fw fa-eye field-icon2 toggle-password2"></span>
                                     </div>
                                 </div>
                                 <a href="login.html" class="btn btn-primary btn-user btn-block">
@@ -74,6 +94,30 @@
     </div>
 
     @include('admin_template/js')
+
+        <script>
+            $( document ).ready(function() {
+                $(".toggle-password").click(function() {
+                    $(this).toggleClass("fa-eye fa-eye-slash");
+                    var input = $($(this).attr("toggle"));
+                        if ($('#password').attr('type') == "password") {
+                            $("#password").prop("type", "text");
+                        } else {
+                            $("#password").prop("type", "password");
+                        }
+                });
+
+                $(".toggle-password2").click(function() {
+                    $(this).toggleClass("fa-eye fa-eye-slash");
+                    var input = $($(this).attr("toggle"));
+                        if ($('#repeat_password').attr('type') == "password") {
+                            $("#repeat_password").prop("type", "text");
+                        } else {
+                            $("#repeat_password").prop("type", "password");
+                        }
+                });
+            });
+        </script>
 
 </body>
 
