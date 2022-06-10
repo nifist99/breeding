@@ -26,5 +26,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['guest']], function () {
-
+    Route::get('login','FrontController@login');
+    Route::get('register','FrontController@register');
+    Route::get('forgot-password','FrontController@forgotPassword');
 });
