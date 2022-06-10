@@ -14,3 +14,4 @@
     <!-- Page level custom scripts -->
     <script src="{{url('admin/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{url('admin/js/demo/chart-pie-demo.js')}}"></script>
+    <script src="{{url('web/vendor/sweetalert2/sweetalert2.min.js')}}"></script>
