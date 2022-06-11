@@ -43,7 +43,7 @@ class LoginController extends Controller
                         Session::put('id_privileges',$check->id_privileges);
                         Session::put('privileges',$check->privileges);
             
-                        return redirect()->intended('dashboard');
+                        return redirect()->intended('admin/dashboard');
                     }else{
                         return redirect()->back()->with(['message'=>'Login gagal pastikan email dan password benar','message_type'=>'warning']);
                     }

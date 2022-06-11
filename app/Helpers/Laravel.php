@@ -12,4 +12,10 @@ class Laravel {
         return $date;
     }
 
+    public static function getNameApp(){
+        
+        return "Breedingo";
+
+    }
+
 }
