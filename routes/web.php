@@ -18,6 +18,26 @@ Route::post('logout','LoginController@logout')->name('logout');
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
     Route::get('dashboard','DashboardController@index')->name('dashboard');
+
+    //users
+    Route::get('users','UsersController@index');
+    Route::get('users/create','UsersController@create');
+    Route::post('users/save','UsersController@store');
+    Route::post('users/update','UsersController@update');
+    Route::get('users/edit/{id}','UsersController@edit');
+    Route::get('users/show/{id}','UsersController@show');
+    Route::get('users/delete/{id}','UsersController@destroy');
+    Route::get('users/{status}/{id}/','UsersController@status');
+
+    //privileges
+    Route::get('privileges','PrivilegesController@index');
+    Route::get('privileges/create','PrivilegesController@create');
+    Route::post('privileges/save','PrivilegesController@store');
+    Route::post('privileges/update','PrivilegesController@update');
+    Route::get('privileges/edit/{id}','PrivilegesController@edit');
+    Route::get('privileges/show/{id}','PrivilegesController@show');
+    Route::get('privileges/delete/{id}','PrivilegesController@destroy');
+    Route::get('privileges/{status}/{id}/','PrivilegesController@status');
     
     Route::group(['middleware' => ['admin']], function () {
 

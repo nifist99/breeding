@@ -81,7 +81,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Users Menu:</h6>
                 <a class="collapse-item" href="login.html">Users Management</a>
-                <a class="collapse-item" href="register.html">Privilages Management</a>
+                <a class="collapse-item" href="{{url('admin/privileges')}}">Privilages Management</a>
             </div>
         </div>
     </li>
