@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>{{Laravel::getNameApp()}}&nbsp;Admin</title>
 
     @include('admin_template/css')
 

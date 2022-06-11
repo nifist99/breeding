@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Laravel;
+use App\Models\Privileges;
 
 class PrivilegesController extends Controller
 {
@@ -12,8 +14,13 @@ class PrivilegesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $data['title'] = "Privileges";
+        $data['no']    =1;
+        $data['view']  = Laravel::viewAdmin('privileges');
+        $data['row']   = Privileges::paginate(20);
+
+        return view('admin.privileges.view',$data);
     }
 
     /**
@@ -34,7 +41,17 @@ class PrivilegesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:privileges,name',
+        ]);
+
+        $check = Privileges::insertData($request);
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success menambahkan data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal menambahkan data','message_type'=>'warning']);
+        }
     }
 
     /**
@@ -66,9 +83,31 @@ class PrivilegesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'id' => 'required',
+        ]);
+
+
+        $data=Privileges::getDataById($request->id);
+
+        if($data->name == $request->name){
+            $check = Privileges::updatetData($request);
+        }else{
+            $request->validate([
+                'name' => 'required|unique:privileges,name',
+            ]);
+
+            $check = Privileges::updatetData($request);
+        }
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success update data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal update data','message_type'=>'warning']);
+        }
     }
 
     /**
@@ -79,6 +118,12 @@ class PrivilegesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $check = Privileges::DeleteById($id);
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success delete data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal delete data','message_type'=>'warning']);
+        }
     }
 }
