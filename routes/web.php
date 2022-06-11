@@ -25,10 +25,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['guest']], function () {
-    Route::get('login','FrontController@login')->name('login-view');
+    Route::get('login','FrontController@login')->name('login');
     Route::get('register','FrontController@register')->name('register-view');
     Route::get('forgot-password','FrontController@forgotPassword')->name('forgot-view');
 
     Route::post('register','RegisterController@store')->name('register');
-    Route::post('login','LoginController@login')->name('login');
+    Route::post('login','LoginController@login');
 });
