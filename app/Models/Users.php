@@ -26,6 +26,42 @@ class Users extends Model
         return $check;
     }
 
+    public static function insertDataByAdmin($request){
+        $data['password']       = Hash::make($request->password);
+        $data['email']          = $request->email;
+        $data['name']           = $request->name;
+        $data['hp']             = $request->hp;
+        $data['status']         = $request->status;
+        $data['id_privileges']  = $request->id_privileges;
+        $data['created_at'] = Laravel::date();
+        
+        $check = DB::table('users')->insert($data);
+
+        return $check;
+    }
+
+    public static function updateData($request){
+        if($request->password){
+            $data['password']       = Hash::make($request->password);
+        }
+        $data['email']          = $request->email;
+        $data['name']           = $request->name;
+        $data['hp']             = $request->hp;
+        $data['status']         = $request->status;
+        $data['id_privileges']  = $request->id_privileges;
+        $data['updated_at'] = Laravel::date();
+        
+        $check = DB::table('users')->where('id',$request->id)->update($data);
+
+        return $check;
+    }
+
+    public static function DeleteById($id){
+        $check = DB::table('users')->where('id',$id)->delete();
+
+        return $check;
+    }
+
     public static function getDataById($id){
 
         $check=DB::table('users')
@@ -43,8 +79,18 @@ class Users extends Model
         $check=DB::table('users')
                 ->join('privileges','users.id_privileges','=','privileges.id')
                 ->where('users.email',$email)
-                ->select('users.*','privileges.name as privileges')
+                ->select('users.*','privileges.name as privileges','privileges.is as id_privileges')
                 ->first();
+        return $check;
+
+    }
+
+    public static function getDataAllByPaginate($page){
+        
+        $check=DB::table('users')
+                ->join('privileges','users.id_privileges','=','privileges.id')
+                ->select('users.*','privileges.name as privileges','privileges.id as id_privileges')
+                ->paginate($page);
         return $check;
 
     }

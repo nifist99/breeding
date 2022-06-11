@@ -30,14 +30,26 @@ class Laravel {
     }
 
     public static function viewAdminById($view,$id){
+        $data['index']  = 'admin/'.$view;
+        // by id
+        $data['show']   = 'admin/'.$view.'/show'.'/'.$id;
+        $data['edit']   = 'admin/'.$view.'/edit'.'/'.$id;
+        $data['delete'] = 'admin/'.$view.'/delete'.'/'.$id;
 
-                // by id
-                $data['show']   = 'admin/'.$view.'/show'.'/'.$id;
-                $data['edit']   = 'admin/'.$view.'/edit'.'/'.$id;
-                $data['delete'] = 'admin/'.$view.'/delete'.'/'.$id;
+        return $data;
 
-                return $data;
+    }
 
+    public static function privilegesGetAllData(){
+        $check=DB::table('privileges')->get();
+
+        return $check;
+    }
+
+    public static function privilegesEditData($id){
+        $check=DB::table('privileges')->where('id','!=',$id)->get();
+
+        return $check;
     }
 
 }

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-12">
 
-                    <h1 class="h3 mb-2 text-gray-800">{{$title}}</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Menu&nbsp;{{$title}}</h1>
                     <div class="mb-10">
                         <a href="javascript::void(0)" data-toggle="modal" data-target="#createModal" class="btn btn-sm btn-success"><i class="fa fa-plus-circle"></i>&nbsp;Tambah Data</a>
                     </div>
