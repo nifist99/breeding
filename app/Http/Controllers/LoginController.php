@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Users;
+use Session;
+use Laravel;
 
 class LoginController extends Controller
 {
@@ -14,6 +17,15 @@ class LoginController extends Controller
     public function index()
     {
         //
+    }
+
+    public function login(Request $request){
+
+        $credentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
     }
 
     /**
