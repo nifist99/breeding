@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('logout','LoginController@logout')->name('logout');
 
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 
-    Route::get('/','DashboardController@index');
+    Route::get('dashboard','DashboardController@index')->name('dashboard');
     
     Route::group(['middleware' => ['admin']], function () {
 
@@ -24,10 +25,10 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['guest']], function () {
-    Route::get('login','FrontController@login');
-    Route::get('register','FrontController@register');
-    Route::get('forgot-password','FrontController@forgotPassword');
+    Route::get('login','FrontController@login')->name('login-view');
+    Route::get('register','FrontController@register')->name('register-view');
+    Route::get('forgot-password','FrontController@forgotPassword')->name('forgot-view');
 
-    Route::post('register','RegisterController@store');
-    Route::post('login','LoginController@login');
+    Route::post('register','RegisterController@store')->name('register');
+    Route::post('login','LoginController@login')->name('login');
 });

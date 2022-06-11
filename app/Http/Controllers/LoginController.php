@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Users;
 use Session;
 use Laravel;
+use Hash;
+use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,6 +29,48 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $check = Users::getDataByEmail($request->email);
+        if($check){
+            if($check->status == 'active'){
+                
+                if(Hash::check($request->password, $check->password)){
+                    if (Auth::attempt($credentials)){
+                        $request->session()->regenerate();
+
+                        Session::put('email',$credentials['email']);
+                        Session::put('name',$check->name);
+                        Session::put('id_users',$check->id);
+                        Session::put('id_privileges',$check->id_privileges);
+                        Session::put('privileges',$check->privileges);
+            
+                        return redirect()->intended('dashboard');
+                    }else{
+                        return redirect()->back()->with(['message'=>'Login gagal pastikan email dan password benar','message_type'=>'warning']);
+                    }
+
+                }else{
+                    return redirect()->back()->with(['message'=>'Login gagal pastikan email dan password benar','message_type'=>'warning']);
+                }
+
+            }else{
+                return redirect()->back()->with(['message'=>'Account anda tidak active','message_type'=>'warning']);
+            }
+        }else{
+            return redirect()->back()->with(['message'=>'email anda belum terdaftar','message_type'=>'danger']);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+     
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+
+        Session::flush();
+     
+        return redirect('login')->with(['message'=>'Anda Telah Logout','message_type'=>'primary']);
     }
 
     /**

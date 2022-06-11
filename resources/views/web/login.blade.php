@@ -44,8 +44,8 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    @include('admin_temaplate/error')
-                                    <form class="user" method="post" action="{{url('logiin')}}">
+                                    @include('admin_template/error')
+                                    <form class="user" method="post" action="{{url('login')}}">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user
