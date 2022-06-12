@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Laravel;
+use App\Models\Jenis_Ternak;
 
 class AdminJenisTernakController extends Controller
 {
@@ -13,7 +15,12 @@ class AdminJenisTernakController extends Controller
      */
     public function index()
     {
-        //
+        $data['title'] = "Jenis Ternak";
+        $data['no']    =1;
+        $data['view']  = Laravel::viewAdmin('jenis-ternak');
+        $data['row']   = Jenis_Ternak::paginate(20);
+
+        return view('admin.jenis_ternak.view',$data);
     }
 
     /**
@@ -34,7 +41,17 @@ class AdminJenisTernakController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:privileges,name',
+        ]);
+
+        $check = Jenis_Ternak::insertData($request);
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success menambahkan data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal menambahkan data','message_type'=>'warning']);
+        }
     }
 
     /**
@@ -66,9 +83,31 @@ class AdminJenisTernakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'id' => 'required',
+        ]);
+
+
+        $data=Jenis_Ternak::getDataById($request->id);
+
+        if($data->name == $request->name){
+            $check = Jenis_Ternak::updatetData($request);
+        }else{
+            $request->validate([
+                'name' => 'required|unique:privileges,name',
+            ]);
+
+            $check = Jenis_Ternak::updatetData($request);
+        }
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success update data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal update data','message_type'=>'warning']);
+        }
     }
 
     /**
@@ -79,6 +118,12 @@ class AdminJenisTernakController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $check = Jenis_Ternak::DeleteById($id);
+
+        if($check){
+            return redirect()->back()->with(['message'=>'success delete data','message_type'=>'primary']);
+        }else{
+            return redirect()->back()->with(['message'=>'gagal delete data','message_type'=>'warning']);
+        }
     }
 }
