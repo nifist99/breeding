@@ -79,7 +79,7 @@ class Users extends Model
         $check=DB::table('users')
                 ->join('privileges','users.id_privileges','=','privileges.id')
                 ->where('users.email',$email)
-                ->select('users.*','privileges.name as privileges','privileges.is as id_privileges')
+                ->select('users.*','privileges.name as privileges','privileges.id as id_privileges')
                 ->first();
         return $check;
 

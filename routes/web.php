@@ -38,6 +38,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
     Route::get('privileges/show/{id}','PrivilegesController@show');
     Route::get('privileges/delete/{id}','PrivilegesController@destroy');
     Route::get('privileges/{status}/{id}/','PrivilegesController@status');
+
+    //jenis-ternak
+    Route::get('jenis-ternak','AdminJenisTernakController@index');
+    Route::get('jenis-ternak/create','AdminJenisTernakController@create');
+    Route::post('jenis-ternak/save','AdminJenisTernakController@store');
+    Route::post('jenis-ternak/update','AdminJenisTernakController@update');
+    Route::get('jenis-ternak/edit/{id}','AdminJenisTernakController@edit');
+    Route::get('jenis-ternak/show/{id}','AdminJenisTernakController@show');
+    Route::get('jenis-ternak/delete/{id}','AdminJenisTernakController@destroy');
+    Route::get('jenis-ternak/{status}/{id}/','AdminJenisTernakController@status');
     
     Route::group(['middleware' => ['admin']], function () {
 
