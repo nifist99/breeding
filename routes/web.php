@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function () {
 });
 
 Route::group(['middleware' => ['guest']], function () {
+    Route::get('/','FrontController@login')->name('login');
     Route::get('login','FrontController@login')->name('login');
     Route::get('register','FrontController@register')->name('register-view');
     Route::get('forgot-password','FrontController@forgotPassword')->name('forgot-view');
