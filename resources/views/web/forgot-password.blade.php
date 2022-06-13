@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Forgot Password</title>
+    <title>{{Laravel::getNameApp()}}</title>
 
     @include('admin_template/css')
 

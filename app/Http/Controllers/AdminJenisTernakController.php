@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Users;
 use Laravel;
+use App\Models\Jenis_Ternak;
 
-class UsersController extends Controller
+class AdminJenisTernakController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $data['title'] = "Users";
+        $data['title'] = "Jenis Ternak";
         $data['no']    =1;
-        $data['view']  = Laravel::viewAdmin('users');
-        $data['row']   = Users::getDataAllByPaginate(20);
+        $data['view']  = Laravel::viewAdmin('jenis-ternak');
+        $data['row']   = Jenis_Ternak::paginate(20);
 
-        return view('admin.users.view',$data);
+        return view('admin.jenis_ternak.view',$data);
     }
 
     /**
@@ -42,15 +42,10 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required|unique:users,email',
-            'name'  => 'required',
-            'status'  => 'required',
-            'hp'  => 'required',
-            'password'  => 'required',
-            'id_privileges'  => 'required',
+            'name' => 'required|unique:privileges,name',
         ]);
 
-        $check = Users::insertDataByAdmin($request);
+        $check = Jenis_Ternak::insertData($request);
 
         if($check){
             return redirect()->back()->with(['message'=>'success menambahkan data','message_type'=>'primary']);
@@ -67,11 +62,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $data['title'] = "Users";
-        $data['view']  = Laravel::viewAdminById('users',$id);
-        $data['row']   = Users::getDataById($id);
-        
-        return view('admin.users.show',$data);
+        //
     }
 
     /**
@@ -95,22 +86,21 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'name'  => 'required',
-            'status'  => 'required',
-            'hp'  => 'required',
-            'id_privileges'  => 'required',
+            'name' => 'required',
+            'id' => 'required',
         ]);
 
 
-        $data=Users::getDataById($request->id);
+        $data=Jenis_Ternak::getDataById($request->id);
 
-        if($data->email == $request->email){
-            $check = Users::updateData($request);
+        if($data->name == $request->name){
+            $check = Jenis_Ternak::updatetData($request);
         }else{
             $request->validate([
-                'email' => 'required|unique:users,email',
+                'name' => 'required|unique:privileges,name',
             ]);
-            $check = Users::updateData($request);
+
+            $check = Jenis_Ternak::updatetData($request);
         }
 
         if($check){
@@ -128,7 +118,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $check = Users::DeleteById($id);
+        $check = Jenis_Ternak::DeleteById($id);
 
         if($check){
             return redirect()->back()->with(['message'=>'success delete data','message_type'=>'primary']);
